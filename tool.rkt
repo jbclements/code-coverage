@@ -35,7 +35,7 @@
         ; a dialog with a list of files covered by the currently in focus file
         ; and allows the user to select a file to open and jump to. Coverage
         ; information is first looked for in DrRacket (the program has just been run)
-        ; If the program has not been run, or has been modified to invalidate it's
+        ; If the program has not been run, or has been modified to invalidate its
         ; coverage information, look in the compiled directory for coverage info
         ; and display that.
         (define (load-coverage)
@@ -68,7 +68,7 @@
                        [choice-open-with (first choice-pair)]
                        [choice-index-list (last choice-pair)]
                        )
-                  ;switch to or open a new frame with the selected file and display the uncoverd lines in a new dialog
+                  ;switch to or open a new frame with the selected file and display the uncovered lines in a new dialog
                   (when choice-index-list
                     (map (λ (choice-index)
                            (let* ([coverage-report-item (list-ref coverage-report-list choice-index)]
@@ -118,7 +118,7 @@
                 (if (and coverage-file (file-exists? coverage-file)) ;Maybe we have some saved test coverage info?
                     (if (and (not (is-file-still-valid? source-file coverage-file)) ;check if the saved info is up to date
                              (not (out-of-date-coverage-message coverage-file))) ;if its not up to date, ask the user if 
-                                                                                 ;they want to use it anyways
+                                                                                 ;they want to use it anyway
                         #f
                         (load-test-coverage-info coverage-file))
                     (begin ; no test coverage info, tell the user and how they might collect some
@@ -297,7 +297,7 @@
        (message-box/custom tool-name 
                            (string-append (format "The multi-file code coverage information for ~a" file)
                                           " may be out of date, run the program again to update it." 
-                                          " Do you want to use it anyways?")
+                                          " Do you want to use it anyway?")
                            "Continue" ;button 1
                            "Cancel" ;button 2
                            #f
