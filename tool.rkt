@@ -1,4 +1,5 @@
 #lang racket/base
+
 (require "info-helper.rkt"
          drracket/tool
          drracket/tool-lib
@@ -13,6 +14,7 @@
          racket/path
          mrlib/switchable-button
          framework)
+
 (provide tool@)
 
 (define tool@
@@ -151,13 +153,16 @@
                          (let* ([line (syntax-line key)]
                                 [source (format "~a" (syntax-source key))]
                                 [covered? (mcar value)]
-                                [file->lines-value (hash-ref file->lines-ht 
-                                                             source 
-                                                             (list 
-                                                              (is-file-still-valid? (string->path source) coverage-file) 
-                                                              0 ;number of lines in the file
-                                                              (list) ;list of uncovered lines
-                                                              ))])
+                                [file->lines-value 
+                                 (hash-ref file->lines-ht 
+                                           source 
+                                           (list 
+                                            (is-file-still-valid? 
+                                             (string->path source)
+                                             coverage-file) 
+                                            0 ;number of lines in the file
+                                            (list) ;list of uncovered lines
+                                            ))])
                            (hash-set! file->lines-ht source 
                                       (list (first file->lines-value) 
                                             (max line (second file->lines-value))
@@ -401,11 +406,10 @@
              [label ""]
              [parent dialog]
              [style (list 'multiple)]))
-        (send text-field set-value (foldl (λ (item text) 
-                                  (string-append text 
-                                                 (if (equal? text "") "" ", ")
-                                                 (number->string item))) 
-                                "" lines))
+        (send text-field set-value 
+              (apply 
+               string-append
+               (add-between (map number->string lines) ", ")))
         (send (send text-field get-editor) lock #t)
 
         (define panel (new horizontal-panel% 
