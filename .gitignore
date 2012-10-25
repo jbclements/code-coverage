@@ -1,6 +1,6 @@
+*~
 *.bak
-*.1
-/compiled
+compiled
 /planet-docs
 *.css
 *.js
@@ -15,12 +15,4 @@
 *.lof
 *.txt
 *.synctex
-*.plt
-report/scribble/page-number.tex
-multi-file-code-coverage
-/*.png
 *.xml
-report-blx.bib
-report/report.pdf
-*.bbl
-*.blg
